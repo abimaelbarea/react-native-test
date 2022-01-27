@@ -3,7 +3,23 @@ import { ScrollView, StyleSheet } from "react-native";
 
 import { View } from "../components/Themed";
 
-const users = Array(10).fill({ id: String(Math.random()) });
+type User = {
+  id: string;
+};
+
+type UserProps = {
+  user: User;
+};
+
+function UserRow({ user }: UserProps) {
+  return (
+    <View style={styles.user}>
+      <Text style={styles.id}>{user.id}</Text>
+    </View>
+  );
+}
+
+const users: User[] = Array(10).fill({ id: String(Math.random()) });
 const cards = Array(10).fill(null);
 
 export default function TabTwoScreen() {
@@ -15,13 +31,9 @@ export default function TabTwoScreen() {
             <Card key={key} containerStyle={styles.card}>
               <Card.Title>User List</Card.Title>
               <Card.Divider />
-              {users.map((user, index) => {
-                return (
-                  <View key={index} style={styles.user}>
-                    <Text style={styles.id}>{user.id}</Text>
-                  </View>
-                );
-              })}
+              {users.map((user, index) => (
+                <UserRow key={index} user={user} />
+              ))}
             </Card>
           );
         })}

@@ -4,10 +4,16 @@ import { Controller, useForm } from "react-hook-form";
 import { StyleSheet } from "react-native";
 import { View } from "../components/Themed";
 
+export enum FormFields {
+  name = "name",
+  surname = "surname",
+  email = "email",
+}
+
 export type FormData = {
-  name: string;
-  surname: string;
-  email: boolean;
+  [FormFields.name]: string;
+  [FormFields.surname]: string;
+  [FormFields.email]: boolean;
 };
 
 export type UserFormProps = {
@@ -17,9 +23,9 @@ export type UserFormProps = {
 export default function UserForm({ onSubmit }: UserFormProps) {
   const { control, handleSubmit } = useForm({
     defaultValues: {
-      name: "",
-      surname: "",
-      email: false,
+      [FormFields.name]: "",
+      [FormFields.surname]: "",
+      [FormFields.email]: false,
     },
   });
 
@@ -27,7 +33,7 @@ export default function UserForm({ onSubmit }: UserFormProps) {
     <View style={styles.container}>
       <form>
         <Controller
-          name="name"
+          name={FormFields.name}
           control={control}
           render={({ field }) => (
             <Input
@@ -39,7 +45,7 @@ export default function UserForm({ onSubmit }: UserFormProps) {
           )}
         />
         <Controller
-          name="surname"
+          name={FormFields.surname}
           control={control}
           render={({ field }) => (
             <Input
@@ -52,7 +58,7 @@ export default function UserForm({ onSubmit }: UserFormProps) {
         />
         <Divider width={5} />
         <Controller
-          name="email"
+          name={FormFields.email}
           control={control}
           render={({ field }) => (
             <CheckBox
