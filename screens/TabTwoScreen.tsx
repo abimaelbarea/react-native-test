@@ -10,9 +10,9 @@ export default function TabTwoScreen() {
   return (
     <ScrollView>
       <View style={styles.container}>
-        {cards.map((_) => {
+        {cards.map((_, key) => {
           return (
-            <Card containerStyle={styles.card}>
+            <Card key={key} containerStyle={styles.card}>
               <Card.Title>User List</Card.Title>
               <Card.Divider />
               {users.map((user, index) => {
