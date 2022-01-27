@@ -1,31 +1,51 @@
-import { StyleSheet } from 'react-native';
+import { Card, Text } from "react-native-elements";
+import { ScrollView, StyleSheet } from "react-native";
 
-import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View } from '../components/Themed';
+import { View } from "../components/Themed";
+
+const users = Array(10).fill({ id: String(Math.random()) });
+const cards = Array(10).fill(null);
 
 export default function TabTwoScreen() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab Two</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/TabTwoScreen.tsx" />
-    </View>
+    <ScrollView>
+      <View style={styles.container}>
+        {cards.map((_) => {
+          return (
+            <Card containerStyle={styles.card}>
+              <Card.Title>User List</Card.Title>
+              <Card.Divider />
+              {users.map((user, index) => {
+                return (
+                  <View key={index} style={styles.user}>
+                    <Text style={styles.id}>{user.id}</Text>
+                  </View>
+                );
+              })}
+            </Card>
+          );
+        })}
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
+  card: {
+    width: "90%",
   },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
+  user: {
+    flexDirection: "row",
+    marginBottom: 6,
+    backgroundColor: "green",
+  },
+  id: {
+    fontSize: 16,
+    marginTop: 5,
   },
 });
